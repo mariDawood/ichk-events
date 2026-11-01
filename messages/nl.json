@@ -19,7 +19,70 @@
     "where": "Waar",
     "entrance": "Toegang",
     "activities": "Wat er te doen is",
-    "heroAlt": "Mensen lopen naar een verlichte kerk"
+    "heroAlt": "Mensen lopen naar een verlichte kerk",
+    "signup": "Meld u aan"
+  },
+  "signup": {
+    "title": "Meld u aan",
+    "intro": "Vul in wie er komt. Na het betalen krijgt u de kaartjes per e-mail. Elk kaartje heeft een eigen nummer en een streepjescode.",
+    "email": "E-mailadres",
+    "emailHint": "Hierop ontvangt u de kaartjes en bericht over deze activiteit.",
+    "party": "Met hoeveel personen komt u?",
+    "person": "Persoon {n}",
+    "age": "Leeftijd",
+    "bingo": "Bingokaart, €7",
+    "bingoHint": "Eén grote prijs. Op de dag volgt u de nummers op uw telefoon en streept u ze af op uw kaart.",
+    "total": "Totaal",
+    "pay": "Betalen en kaartjes ontvangen",
+    "paying": "Een ogenblik…",
+    "simulated": "Op deze computer wordt de betaling nagebootst, tot Stripe is gekoppeld.",
+    "paymentsClosed": "Betalen is nog niet open. Probeer het later opnieuw.",
+    "errors": {
+      "email": "Vul een e-mailadres in waar we naartoe kunnen schrijven.",
+      "age": "Vul voor elke persoon een leeftijd in.",
+      "event": "Deze activiteit is niet meer open.",
+      "payment": "Betalen lukt nu niet. Probeer het later opnieuw.",
+      "generic": "Er ging iets mis. Probeer het opnieuw."
+    }
+  },
+  "complete": {
+    "title": "Betaling ontvangen",
+    "waitingTitle": "We wachten op de betaling",
+    "waiting": "De bank heeft de betaling nog niet bevestigd. Deze pagina ververst vanzelf.",
+    "body": "Dit zijn uw kaartnummers. We sturen ze ook naar {email}.",
+    "paid": "Betaald:",
+    "emailPending": "De e-mail is nog niet verstuurd. Bewaar deze pagina, of open uw kaartjes via de knop hieronder.",
+    "emailHeading": "De e-mail",
+    "emailTo": "Aan {email}",
+    "emailSubject": "Onderwerp: {subject}",
+    "open": "Open uw kaartjes",
+    "age": "{age} jaar",
+    "bingoYes": "Met een bingokaart",
+    "bingoNo": "Zonder bingokaart"
+  },
+  "ticket": {
+    "title": "Uw kaartje",
+    "intro": "Vul het kaartnummer in. Dat nummer staat ook in uw e-mail.",
+    "number": "Kaartnummer",
+    "show": "Toon mijn kaartje",
+    "invalid": "Dit nummer hoort niet bij deze aanmelding.",
+    "barcode": "Streepjescode voor de deur",
+    "barcodeHint": "Houd dit scherm klaar bij de ingang.",
+    "age": "Leeftijd {age}",
+    "prize": "Dit kaartje heeft een van de vijf prijzen gewonnen.",
+    "bingoPrize": "Dit kaartje heeft de grote bingoprijs gewonnen.",
+    "card": "Uw bingokaart",
+    "free": "Vrij",
+    "calledTitle": "Nieuw nummer",
+    "calledEmpty": "Het eerste nummer verschijnt hier.",
+    "calledButton": "Eerder getrokken",
+    "pending": "Deze aanmelding is nog niet betaald."
+  },
+  "bingoLive": {
+    "title": "Bingo",
+    "empty": "Tijdens de activiteit verschijnen de nummers hier.",
+    "latest": "Nieuwste nummer",
+    "all": "Nummers die al geweest zijn"
   },
   "footer": {
     "address": "Remigiusplein, Duiven",

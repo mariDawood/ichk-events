@@ -1,5 +1,6 @@
-import { routing, type Locale } from "@/i18n/routing";
-import { getLocale, getTranslations } from "next-intl/server";
+import { LanguageNav } from "@/components/language-nav";
+import type { Locale } from "@/i18n/routing";
+import { getTranslations } from "next-intl/server";
 
 const languageNames: Record<Locale, string> = {
   nl: "Nederlands",
@@ -27,7 +28,6 @@ function Cross() {
 
 export async function SiteHeader() {
   const t = await getTranslations("header");
-  const locale = (await getLocale()) as Locale;
 
   return (
     <header className="relative z-10 bg-chapel text-ivory">
@@ -42,30 +42,7 @@ export async function SiteHeader() {
             <p className="mt-4 max-w-xl text-xl leading-relaxed">{t("parish")}</p>
           </div>
         </div>
-        <nav aria-label={t("language")}>
-          <ul className="flex flex-wrap gap-2">
-            {routing.locales.map((code) => {
-              const current = code === locale;
-              return (
-                <li key={code}>
-                  <a
-                    href={code === routing.defaultLocale ? "/" : `/${code}`}
-                    hrefLang={code}
-                    lang={code}
-                    aria-current={current ? "page" : undefined}
-                    className={
-                      current
-                        ? "inline-flex min-h-12 items-center rounded-full bg-ivory px-4 text-lg text-ink"
-                        : "inline-flex min-h-12 items-center rounded-full px-4 text-lg text-ivory ring-1 ring-ivory/50 hover:ring-ivory"
-                    }
-                  >
-                    {languageNames[code]}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+        <LanguageNav label={t("language")} names={languageNames} />
       </div>
       <div className="h-px bg-gold" />
     </header>

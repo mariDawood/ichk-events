@@ -1,6 +1,8 @@
+import { BingoLive } from "@/components/bingo-live";
+import { SignupForm } from "@/components/signup-form";
 import type { ChurchEvent } from "@/content/events";
 import type { Locale } from "@/i18n/routing";
-import { getVisibleEvents } from "@/lib/events";
+import { getVisibleEvents, isDuringEvent } from "@/lib/events";
 import { routeUrl } from "@/components/site-footer";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
@@ -66,8 +68,11 @@ async function EventArticle({
   const t = await getTranslations("event");
   const footer = await getTranslations("footer");
 
+  const duringEvent = isDuringEvent(event, new Date());
+
   return (
     <article id={event.id} className="flex flex-col gap-8">
+      <BingoLive eventId={event.id} duringEvent={duringEvent} />
       <div className="relative">
         <Image
           src="/illustrations/candles.jpg"
@@ -146,6 +151,12 @@ async function EventArticle({
           <p className="mt-4 text-lg leading-relaxed text-ivory/95">
             {event.included[locale]}
           </p>
+          <a
+            href="#aanmelden"
+            className="mt-5 inline-flex min-h-12 items-center rounded-full bg-ivory px-5 text-xl text-chapel"
+          >
+            {t("signup")}
+          </a>
         </section>
       </div>
 
@@ -160,6 +171,16 @@ async function EventArticle({
           {event.bingo[locale]}
         </p>
       </div>
+
+      <SignupForm
+        eventId={event.id}
+        simulated={
+          process.env.NODE_ENV === "development" &&
+          !process.env.STRIPE_SECRET_KEY &&
+          process.env.PAYMENTS_DEMO !== "1"
+        }
+        paymentsReady={Boolean(process.env.STRIPE_SECRET_KEY) || process.env.PAYMENTS_DEMO === "1"}
+      />
 
       <section>
         <h2 className="font-display text-4xl text-chapel">{t("activities")}</h2>

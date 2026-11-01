@@ -21,4 +21,6 @@ npm run dev
 
 ## Put it on Vercel
 
-Import this GitHub repository in Vercel. The framework is Next.js. There are no environment variables. After the first deploy, attach the domain in the Vercel project settings.
+Import this GitHub repository in Vercel. The framework is Next.js. After the first deploy, attach the domain in the Vercel project settings.
+
+Signups, tickets, and bingo numbers are stored in Supabase. Copy `.env.example` to `.env.local` and fill in `DATABASE_URL`, the admin session values, and, when you are ready to take payment and send mail, the Stripe and Resend values. People sign up on the activity page. After payment, each person gets a ticket number and a barcode. The link in the email opens their page. Beheer is at `/admin`. There is no link to it on the public page.

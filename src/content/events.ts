@@ -94,14 +94,14 @@ export const events: ChurchEvent[] = [
       ar: "يمكن دفع ثمن المزيد من الطعام والشراب عند الأكشاك.",
     },
     ticket: {
-      nl: "Op het kaartje staat een nummer. Daarmee kunt u iets winnen.",
-      en: "Your ticket has a number. With it you can win a prize.",
-      ar: "على التذكرة رقم. به يمكنكم ربح جائزة.",
+      nl: "Op het kaartje staat een nummer. Daarmee maakt u kans op een van de vijf prijzen.",
+      en: "Your ticket has a number. With it you can win one of five prizes.",
+      ar: "على التذكرة رقم. به يمكنكم الفوز بإحدى الجوائز الخمس.",
     },
     bingo: {
-      nl: "Bingo: €7 bij de ingang. Vijf winnaars.",
-      en: "Bingo: €7 at the door. Five winners.",
-      ar: "بنغو: ٧ يورو عند الباب. خمسة فائزين.",
+      nl: "Bingokaart: €7 bij het aanmelden. Eén grote prijs.",
+      en: "Bingo card: €7 when you sign up. One large prize.",
+      ar: "بطاقة بنغو: ٧ يورو عند التسجيل. جائزة كبيرة واحدة.",
     },
     activities: [
       {

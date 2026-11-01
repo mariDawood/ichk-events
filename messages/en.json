@@ -19,7 +19,70 @@
     "where": "Where",
     "entrance": "Entrance",
     "activities": "What there is to do",
-    "heroAlt": "People walking toward a church with light in the windows"
+    "heroAlt": "People walking toward a church with light in the windows",
+    "signup": "Sign up"
+  },
+  "signup": {
+    "title": "Sign up",
+    "intro": "Tell us who is coming. After payment you receive the tickets by email. Each ticket has its own number and barcode.",
+    "email": "Email address",
+    "emailHint": "We send the tickets and news about this activity here.",
+    "party": "How many people are coming?",
+    "person": "Person {n}",
+    "age": "Age",
+    "bingo": "Bingo card, €7",
+    "bingoHint": "One large prize. On the day you can follow the numbers on your phone and cross them off your card.",
+    "total": "Total",
+    "pay": "Pay and receive the tickets",
+    "paying": "One moment…",
+    "simulated": "On this computer, payment is simulated until Stripe is connected.",
+    "paymentsClosed": "Payment is not open yet. Please try again later.",
+    "errors": {
+      "email": "Enter an email address we can write to.",
+      "age": "Enter an age for each person.",
+      "event": "This activity is no longer open.",
+      "payment": "Payment did not work. Please try again later.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "complete": {
+    "title": "Payment received",
+    "waitingTitle": "Waiting for the payment",
+    "waiting": "The bank has not confirmed the payment yet. This page refreshes by itself.",
+    "body": "These are your ticket numbers. We also send them to {email}.",
+    "paid": "Paid:",
+    "emailPending": "The email has not been sent yet. Keep this page, or open your tickets with the button below.",
+    "emailHeading": "The email",
+    "emailTo": "To {email}",
+    "emailSubject": "Subject: {subject}",
+    "open": "Open your tickets",
+    "age": "{age} years",
+    "bingoYes": "With a bingo card",
+    "bingoNo": "Without a bingo card"
+  },
+  "ticket": {
+    "title": "Your ticket",
+    "intro": "Enter the ticket number. That number is also in your email.",
+    "number": "Ticket number",
+    "show": "Show my ticket",
+    "invalid": "That number does not belong to this signup.",
+    "barcode": "Barcode for the door",
+    "barcodeHint": "Keep this screen ready at the entrance.",
+    "age": "Age {age}",
+    "prize": "This ticket has won one of the five prizes.",
+    "bingoPrize": "This ticket has won the large bingo prize.",
+    "card": "Your bingo card",
+    "free": "Free",
+    "calledTitle": "New number",
+    "calledEmpty": "The first number will appear here.",
+    "calledButton": "Numbers already called",
+    "pending": "This signup is not paid yet."
+  },
+  "bingoLive": {
+    "title": "Bingo",
+    "empty": "The numbers appear here during the activity.",
+    "latest": "Latest number",
+    "all": "Numbers already called"
   },
   "footer": {
     "address": "Remigiusplein, Duiven",

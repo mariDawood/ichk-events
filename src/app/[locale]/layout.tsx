@@ -1,9 +1,7 @@
 import { Background } from "@/components/background";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
 import { routing } from "@/i18n/routing";
-import { hasLocale } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { Cormorant_Garamond, Noto_Naskh_Arabic, Source_Sans_3 } from "next/font/google";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
@@ -49,6 +47,7 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
   const t = await getTranslations();
+  const messages = await getMessages();
 
   return (
     <html
@@ -58,20 +57,15 @@ export default async function LocaleLayout({
     >
       <body className="flex min-h-dvh flex-col bg-stone text-ink">
         <Background />
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:bg-ivory focus:px-4 focus:py-3 focus:text-lg focus:text-ink"
-        >
-          {t("skip")}
-        </a>
-        <SiteHeader />
-        <main
-          id="main"
-          className="relative z-10 mx-auto w-full max-w-6xl flex-1 px-6 py-10 sm:py-14"
-        >
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:bg-ivory focus:px-4 focus:py-3 focus:text-lg focus:text-ink"
+          >
+            {t("skip")}
+          </a>
           {children}
-        </main>
-        <SiteFooter />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

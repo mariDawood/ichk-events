@@ -165,13 +165,64 @@ header :focus-visible {
   }
 }
 
+.bingo-ball {
+  display: grid;
+  width: 8.5rem;
+  height: 8.5rem;
+  place-items: center;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 32% 28%, #fff 0 8%, transparent 9%),
+    radial-gradient(circle at 34% 32%, #fff6df 0%, #e7c98a 42%, #8c7340 78%);
+  box-shadow:
+    inset -12px -16px 18px rgba(80, 52, 12, 0.28),
+    0 14px 28px rgba(28, 25, 21, 0.16);
+}
+
+.bingo-ball span {
+  display: grid;
+  width: 5.8rem;
+  height: 5.8rem;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--color-ivory);
+  font-family: var(--font-display);
+  font-size: 3.25rem;
+  line-height: 1;
+  color: var(--color-chapel);
+}
+
+.ball-pop {
+  animation: ball-pop 0.55s ease;
+}
+
+@keyframes ball-pop {
+  0% {
+    transform: scale(0.72);
+    opacity: 0.4;
+  }
+  70% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.barcode-svg svg {
+  width: 100%;
+  height: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .light-wash,
   .sanctuary-glow,
   .side-light,
   .rise,
   .float-card,
-  .float-card-late {
+  .float-card-late,
+  .ball-pop {
     animation: none;
   }
 
