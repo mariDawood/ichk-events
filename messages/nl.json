@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "title": "H. Remigiuskerk in Duiven",
+    "description": "Activiteiten in de H. Remigiuskerk in Duiven, van de parochie Heilige Thomas Apostel voor Chaldeeën in Nederland."
+  },
+  "skip": "Naar de inhoud",
+  "header": {
+    "churchName": "H. Remigiuskerk",
+    "town": "Duiven",
+    "parish": "Heilige Thomas Apostel, parochie voor Chaldeeën in Nederland",
+    "language": "Taal"
+  },
+  "empty": {
+    "title": "Er staat nog niets op de agenda",
+    "body": "Er zijn op dit moment geen activiteiten. U bent welkom om later nog eens te kijken. Zodra er iets te beleven valt, staat het hier."
+  },
+  "event": {
+    "when": "Wanneer",
+    "where": "Waar",
+    "why": "Waarom",
+    "entrance": "Toegang",
+    "activities": "Wat er te doen is"
+  },
+  "footer": {
+    "address": "Remigiusplein, Duiven",
+    "route": "Route naar de kerk",
+    "parish": "De parochie"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "title": "H. Remigiuskerk in Duiven",
+    "description": "Activities at the H. Remigiuskerk in Duiven, of the parish of Saint Thomas the Apostle for Chaldeans in the Netherlands."
+  },
+  "skip": "Skip to content",
+  "header": {
+    "churchName": "H. Remigiuskerk",
+    "town": "Duiven",
+    "parish": "Saint Thomas the Apostle, parish for Chaldeans in the Netherlands",
+    "language": "Language"
+  },
+  "empty": {
+    "title": "Nothing is on the agenda yet",
+    "body": "There are no activities at the moment. You are welcome to look again later. When there is something to come to, it will be here."
+  },
+  "event": {
+    "when": "When",
+    "where": "Where",
+    "why": "Why",
+    "entrance": "Entrance",
+    "activities": "What there is to do"
+  },
+  "footer": {
+    "address": "Remigiusplein, Duiven",
+    "route": "Route to the church",
+    "parish": "The parish"
+  }
+}
