@@ -67,7 +67,7 @@ export default async function LocaleLayout({
         <SiteHeader />
         <main
           id="main"
-          className="relative z-10 mx-auto w-full max-w-2xl flex-1 px-6 py-12 sm:py-16"
+          className="relative z-10 mx-auto w-full max-w-6xl flex-1 px-6 py-10 sm:py-14"
         >
           {children}
         </main>

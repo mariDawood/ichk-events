@@ -2,23 +2,32 @@ import type { Locale } from "@/i18n/routing";
 
 type Copy = Record<Locale, string>;
 
+export type Price = {
+  amount: string;
+  who: Copy;
+};
+
+export type Activity = {
+  image: "candles" | "table" | "play" | "music" | "welcome";
+  title: Copy;
+  text: Copy;
+};
+
 export type ChurchEvent = {
   id: string;
   start: string;
   end: string;
-  kind: Copy;
   title: Copy;
   summary: Copy;
   date: Copy;
   time: Copy;
   place: Copy;
-  goal: Copy;
-  prices: Copy[];
+  prices: Price[];
   included: Copy;
   extra: Copy;
   ticket: Copy;
   bingo: Copy;
-  activities: Copy[];
+  activities: Activity[];
 };
 
 /**
@@ -28,23 +37,18 @@ export type ChurchEvent = {
  */
 export const events: ChurchEvent[] = [
   {
-    id: "donatiedag-2026-12-06",
+    id: "nieuw-licht-2026-12-06",
     start: "2026-12-06T12:00:00+01:00",
     end: "2026-12-06T16:00:00+01:00",
-    kind: {
-      nl: "Donatiedag",
-      en: "Donation day",
-      ar: "يوم التبرعات",
-    },
     title: {
       nl: "Een nieuw licht brandt in Duiven",
       en: "A new light burns in Duiven",
       ar: "نور جديد يضيء في دويفن",
     },
     summary: {
-      nl: "Een open dag voor iedereen, en voor gezinnen. We komen samen in de kerk, met eten, spel en een warm welkom.",
-      en: "An open day for everyone, and for families. We come together in the church, with food, games, and a warm welcome.",
-      ar: "يوم مفتوح للجميع وللعائلات. نجتمع في الكنيسة، مع الطعام والألعاب وترحيب حار.",
+      nl: "Een open dag voor iedereen die een beetje licht kan gebruiken! We komen samen in de kerk, met eten, gezelligheid en een warm welkom.",
+      en: "An open day for everyone who can use a little light! We come together in the church, with food, fun games, and a warm welcome.",
+      ar: "يوم مفتوح للجميع الذين يمكنهم استخدام الضوء القليل! نجتمع في الكنيسة، مع الطعام والتواصل وترحيب حار.",
     },
     date: {
       nl: "zondag 6 december 2026",
@@ -52,127 +56,118 @@ export const events: ChurchEvent[] = [
       ar: "الأحد ٦ كانون الأول ٢٠٢٦",
     },
     time: {
-      nl: "van 12.00 tot 16.00 uur",
-      en: "from 12:00 to 16:00",
-      ar: "من الساعة ١٢:٠٠ حتى ١٦:٠٠",
+      nl: "12.00 tot 16.00 uur",
+      en: "12:00 to 16:00",
+      ar: "١٢:٠٠ حتى ١٦:٠٠",
     },
     place: {
-      nl: "H. Remigiuskerk, Remigiusplein, Duiven",
-      en: "H. Remigiuskerk, Remigiusplein, Duiven",
-      ar: "كنيسة القديس ريميجيوس، Remigiusplein، دويفن",
-    },
-    goal: {
-      nl: "Met deze dag willen we €70.000 bijeenbrengen voor de kerk.",
-      en: "With this day we hope to raise €70,000 for the church.",
-      ar: "نريد في هذا اليوم جمع ٧٠٬٠٠٠ يورو من أجل الكنيسة.",
+      nl: "H. Remigiuskerk\nRemigiusplein, Duiven",
+      en: "H. Remigiuskerk\nRemigiusplein, Duiven",
+      ar: "كنيسة القديس ريميجيوس\nRemigiusplein، دويفن",
     },
     prices: [
       {
-        nl: "Kinderen t/m 12 jaar: €5",
-        en: "Children up to and including 12 years: €5",
-        ar: "الأطفال حتى عمر ١٢ سنة: ٥ يورو",
+        amount: "€5",
+        who: {
+          nl: "Kinderen t/m 12 jaar",
+          en: "Children up to and including 12 years",
+          ar: "الأطفال حتى عمر ١٢ سنة",
+        },
       },
       {
-        nl: "Alle anderen: €10",
-        en: "Everyone else: €10",
-        ar: "الباقي: ١٠ يورو",
+        amount: "€10",
+        who: {
+          nl: "Alle anderen",
+          en: "Everyone else",
+          ar: "الباقي",
+        },
       },
     ],
     included: {
-      nl: "Inbegrepen is één koffie of thee en iets kleins te eten.",
-      en: "This includes one coffee or tea and something small to eat.",
+      nl: "Inbegrepen: één koffie of thee en iets kleins te eten.",
+      en: "Included: one coffee or tea and something small to eat.",
       ar: "يشمل ذلك مشروبًا واحدًا، قهوة أو شاي، وشيئًا صغيرًا للأكل.",
     },
     extra: {
-      nl: "Extra eten en drinken kunt u bij de kraampjes betalen.",
+      nl: "Extra eten en drinken betaalt u bij de kraampjes.",
       en: "You can pay for more food and drinks at the stalls.",
       ar: "يمكن دفع ثمن المزيد من الطعام والشراب عند الأكشاك.",
     },
     ticket: {
-      nl: "Op het kaartje staat een nummer. Met dat nummer kunt u iets kleins winnen.",
-      en: "Your ticket has a number. With that number you can win a small prize.",
-      ar: "على التذكرة رقم. بهذا الرقم يمكنكم ربح جائزة صغيرة.",
+      nl: "Op het kaartje staat een nummer. Daarmee kunt u iets winnen.",
+      en: "Your ticket has a number. With it you can win a prize.",
+      ar: "على التذكرة رقم. به يمكنكم ربح جائزة.",
     },
     bingo: {
-      nl: "Een bingokaart kost €7 bij de ingang. Er zijn vijf winnaars.",
-      en: "A bingo card costs €7 at the door. There are five winners.",
-      ar: "بطاقة البنغو ثمنها ٧ يورو عند الباب. هناك خمسة فائزين.",
+      nl: "Bingo: €7 bij de ingang. Vijf winnaars.",
+      en: "Bingo: €7 at the door. Five winners.",
+      ar: "بنغو: ٧ يورو عند الباب. خمسة فائزين.",
     },
     activities: [
       {
-        nl: "Kaarsen versieren",
-        en: "Decorate a candle",
-        ar: "تزيين الشموع",
+        image: "candles",
+        title: {
+          nl: "Kaarsen versieren",
+          en: "Decorate a candle",
+          ar: "تزيين الشموع",
+        },
+        text: {
+          nl: "Versier zelf een kaars, met lint en bloemen.",
+          en: "Decorate a candle yourself, with ribbon and flowers.",
+          ar: "زيّنوا شمعة بأيديكم، بشريط وزهور.",
+        },
       },
       {
-        nl: "Eten, gemaakt door vrijwilligers",
-        en: "Food made by volunteers",
-        ar: "طعام يُعدّه المتطوعون",
+        image: "table",
+        title: {
+          nl: "Samen eten",
+          en: "Eat together",
+          ar: "الأكل معًا",
+        },
+        text: {
+          nl: "Eten gemaakt door vrijwilligers, met koffie en thee.",
+          en: "Food made by volunteers, with coffee and tea.",
+          ar: "طعام يُعدّه المتطوعون، مع القهوة والشاي.",
+        },
       },
       {
-        nl: "Een kermisspel, zoals blikjes gooien",
-        en: "A fair game, such as a can toss",
-        ar: "لعبة مهرجان، مثل رمي العلب",
+        image: "play",
+        title: {
+          nl: "Spelen",
+          en: "Play",
+          ar: "اللعب",
+        },
+        text: {
+          nl: "Een kermisspel, bordspellen, arcade, Lego en een racesimulator. Kinderen kunnen zich laten schminken, en er is een beautyhoek.",
+          en: "A fair game, board games, arcade, Lego, and a racing simulator. Children can have their faces painted, and there is a beauty corner.",
+          ar: "لعبة مهرجان، وألعاب طاولة، وأركيد، وليغو، وجهاز سباق. يمكن رسم وجوه الأطفال، وهناك ركن تجميل.",
+        },
       },
       {
-        nl: "Schminken voor kinderen",
-        en: "Face painting for children",
-        ar: "الرسم على وجوه الأطفال",
+        image: "music",
+        title: {
+          nl: "Piano en film",
+          en: "Piano and a film",
+          ar: "بيانو وفيلم",
+        },
+        text: {
+          nl: "Piano met mooie melodieën, en een kerstfilm met popcorn en warme chocolademelk.",
+          en: "Piano with nice melodies, and a Christmas film with popcorn and hot chocolate.",
+          ar: "بيانو بألحان جميلة، وفيلم بمناسبة الميلاد مع الفشار وشوكولاتة ساخنة.",
+        },
       },
       {
-        nl: "Tweedehands spullen",
-        en: "Second-hand goods",
-        ar: "أغراض مستعملة",
-      },
-      {
-        nl: "Kennismaken met de parochie: catechese, het leven van de parochie, de eucharistie, jongeren, het verhaal van de kerk en het geloof, en het koor",
-        en: "Meet the parish: catechesis, parish life, the Eucharist, youth, the story of the church and the faith, and the choir",
-        ar: "التعرّف إلى الرعية: التعليم المسيحي، حياة الرعية، الإفخارستيا، الشباب، قصة الكنيسة والإيمان، والجوقة",
-      },
-      {
-        nl: "Arcadespellen, Lego en een racesimulator",
-        en: "Arcade games, Lego, and a racing simulator",
-        ar: "ألعاب أركيد، وليغو، وجهاز سباق",
-      },
-      {
-        nl: "Bordspellen",
-        en: "Board games",
-        ar: "ألعاب الطاولة",
-      },
-      {
-        nl: "Een beautyhoek, voor haar en een klein advies",
-        en: "A beauty corner, for hair and a little advice",
-        ar: "ركن تجميل: للشعر ونصيحة بسيطة",
-      },
-      {
-        nl: "Piano met Nederlandse melodieën",
-        en: "Piano with Dutch melodies",
-        ar: "بيانو بألحان هولندية",
-      },
-      {
-        nl: "Een kerstfilm, met popcorn en warme chocolademelk",
-        en: "A Christmas film, with popcorn and hot chocolate",
-        ar: "فيلم بمناسبة الميلاد، مع الفشار وشوكولاتة ساخنة",
-      },
-      {
-        nl: "Een korte presentatie in de kerk",
-        en: "A short presentation in the church",
-        ar: "كلمة قصيرة في الكنيسة",
-      },
-      {
-        nl: "Bingo",
-        en: "Bingo",
-        ar: "بنغو",
-      },
-      {
-        nl: "Een pot snoep: raad hoeveel erin zit",
-        en: "A jar of sweets: guess how many are inside",
-        ar: "جرّة حلوى: خمّنوا كم قطعة بداخلها",
-      },
-      {
-        nl: "Collectebussen in de zaal",
-        en: "Collection boxes in the hall",
-        ar: "صناديق للتبرع في القاعة",
+        image: "welcome",
+        title: {
+          nl: "Kom binnen",
+          en: "Come inside",
+          ar: "ادخلوا",
+        },
+        text: {
+          nl: "Maak kennis met de parochie: catechese, de eucharistie, jongeren, het koor en het verhaal van de kerk en het geloof. Er zullen korte presentaties gegeven worden, de mogelijkheid om onze kringloophoek te bezoeken en samen met elkaar in gesprek te gaan.",
+          en: "Meet the parish: catechesis, the Eucharist, youth, the choir, and the story of the church and the faith. There will be short presentations, the possibility to visit our second-hand goods corner, and to converse together.",
+          ar: "تعرّفوا إلى الرعية: التعليم المسيحي، الإفخارستيا، الشباب، الجوقة، وقصة الكنيسة والإيمان. هناك محاضرات قصيرة، والميلاد بأغراض مستعملة، والتحدث مع بعضنا البعض.",
+        },
       },
     ],
   },

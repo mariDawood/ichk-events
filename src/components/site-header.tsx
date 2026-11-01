@@ -31,7 +31,7 @@ export async function SiteHeader() {
 
   return (
     <header className="relative z-10 bg-chapel text-ivory">
-      <div className="mx-auto flex max-w-2xl flex-col gap-8 px-6 py-8 sm:py-10">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-8 sm:py-10">
         <div className="flex items-start gap-4">
           <Cross />
           <div>

@@ -17,9 +17,9 @@
   "event": {
     "when": "Wanneer",
     "where": "Waar",
-    "why": "Waarom",
     "entrance": "Toegang",
-    "activities": "Wat er te doen is"
+    "activities": "Wat er te doen is",
+    "heroAlt": "Mensen lopen naar een verlichte kerk"
   },
   "footer": {
     "address": "Remigiusplein, Duiven",

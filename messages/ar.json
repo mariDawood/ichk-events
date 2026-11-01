@@ -17,9 +17,9 @@
   "event": {
     "when": "متى",
     "where": "أين",
-    "why": "لماذا",
     "entrance": "الدخول",
-    "activities": "ما الذي يمكنكم فعله"
+    "activities": "ما الذي يمكنكم فعله",
+    "heroAlt": "ناس يمشون نحو كنيسة مضيئة"
   },
   "footer": {
     "address": "Remigiusplein، دويفن",

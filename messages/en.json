@@ -17,9 +17,9 @@
   "event": {
     "when": "When",
     "where": "Where",
-    "why": "Why",
     "entrance": "Entrance",
-    "activities": "What there is to do"
+    "activities": "What there is to do",
+    "heroAlt": "People walking toward a church with light in the windows"
   },
   "footer": {
     "address": "Remigiusplein, Duiven",
