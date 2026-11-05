@@ -154,8 +154,6 @@ export function SignupForm({
             </li>
           ))}
         </ul>
-        <p className="text-lg leading-relaxed">{t("bingoHint")}</p>
-
         <p className="font-display text-4xl text-ink">
           {t("total")} {agesReady ? formatEuro(total, locale) : "—"}
         </p>

@@ -160,12 +160,9 @@ async function EventArticle({
         </section>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2">
         <p className="rounded-2xl bg-ivory/80 px-5 py-4 text-lg leading-relaxed ring-1 ring-line">
           {event.extra[locale]}
-        </p>
-        <p className="rounded-2xl bg-ivory/80 px-5 py-4 text-lg leading-relaxed ring-1 ring-line">
-          {event.ticket[locale]}
         </p>
         <p className="rounded-2xl bg-ivory px-5 py-4 text-xl font-semibold leading-relaxed text-chapel ring-2 ring-gold">
           {event.bingo[locale]}
