@@ -95,11 +95,11 @@ async function EventArticle({
             <Image
               src="/illustrations/hero.jpg"
               alt={t("heroAlt")}
-              width={1600}
-              height={900}
+              width={1000}
+              height={1000}
               priority
               sizes="(min-width: 1152px) 1152px, 100vw"
-              className="aspect-[16/10] h-auto w-full object-cover sm:aspect-[16/8]"
+              className="aspect-[4/3] h-auto w-full object-cover object-[center_42%] sm:aspect-[16/10]"
             />
             <div className="absolute inset-0 hidden bg-gradient-to-t from-chapel via-chapel/70 to-transparent sm:block" />
             <div className="bg-chapel p-6 text-ivory sm:absolute sm:inset-x-0 sm:bottom-0 sm:bg-transparent sm:p-10">
