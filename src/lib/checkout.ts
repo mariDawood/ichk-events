@@ -3,6 +3,8 @@ import { randomBytes } from "node:crypto";
 import Stripe from "stripe";
 import { getEvent } from "@/lib/events";
 import {
+  BINGO_CENTS,
+  ENTRANCE_CENTS,
   orderTotal,
   parseEmail,
   parseGuests,
@@ -22,18 +24,15 @@ export type SignupError = "email" | "age" | "event" | "payment" | "generic";
 
 const lineNames = {
   nl: {
-    child: "Toegang, t/m 12 jaar",
-    adult: "Toegang",
+    entrance: "Toegang",
     bingo: "Bingokaart",
   },
   en: {
-    child: "Entrance, up to 12 years",
-    adult: "Entrance",
+    entrance: "Entrance",
     bingo: "Bingo card",
   },
   ar: {
-    child: "دخول حتى ١٢ سنة",
-    adult: "دخول",
+    entrance: "دخول",
     bingo: "بطاقة بنغو",
   },
 } as const;
@@ -45,12 +44,8 @@ function stripeClient() {
 }
 
 function lineItems(guests: Guest[], locale: Order["locale"]) {
-  let children = 0;
-  let adults = 0;
   let bingo = 0;
   for (const guest of guests) {
-    if (guest.age <= 12) children += 1;
-    else adults += 1;
     if (guest.bingo) bingo += 1;
   }
 
@@ -68,9 +63,8 @@ function lineItems(guests: Guest[], locale: Order["locale"]) {
     });
   };
 
-  add(names.child, 500, children);
-  add(names.adult, 1000, adults);
-  add(names.bingo, 700, bingo);
+  add(names.entrance, ENTRANCE_CENTS, guests.length);
+  add(names.bingo, BINGO_CENTS, bingo);
   return items;
 }
 

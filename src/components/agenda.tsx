@@ -140,9 +140,9 @@ async function EventArticle({
           <h2 className="text-lg font-semibold">{t("entrance")}</h2>
           <ul className="mt-3 flex flex-col gap-3">
             {event.prices.map((price) => (
-              <li key={price.amount} className="flex items-baseline gap-3">
+              <li key={price.who.nl} className="flex items-baseline gap-3">
                 <span className="font-display text-5xl leading-none">
-                  {price.amount}
+                  {price.amount[locale]}
                 </span>
                 <span className="text-xl leading-snug">{price.who[locale]}</span>
               </li>

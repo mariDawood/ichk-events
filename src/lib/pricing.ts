@@ -1,7 +1,5 @@
-export const CHILD_MAX_AGE = 12;
-export const CHILD_CENTS = 500;
-export const ADULT_CENTS = 1000;
-export const BINGO_CENTS = 700;
+export const ENTRANCE_CENTS = 250;
+export const BINGO_CENTS = 100;
 export const MAX_PARTY = 12;
 
 export type Guest = {
@@ -9,13 +7,9 @@ export type Guest = {
   bingo: boolean;
 };
 
-export function priceForAge(age: number) {
-  return age <= CHILD_MAX_AGE ? CHILD_CENTS : ADULT_CENTS;
-}
-
 export function orderTotal(guests: Guest[]) {
   return guests.reduce(
-    (sum, guest) => sum + priceForAge(guest.age) + (guest.bingo ? BINGO_CENTS : 0),
+    (sum, guest) => sum + ENTRANCE_CENTS + (guest.bingo ? BINGO_CENTS : 0),
     0,
   );
 }

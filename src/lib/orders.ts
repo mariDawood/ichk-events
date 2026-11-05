@@ -2,7 +2,7 @@ import "server-only";
 import { randomInt } from "node:crypto";
 import { createBingoCard } from "@/lib/bingo-card";
 import { sql } from "@/lib/db";
-import { BINGO_CENTS, priceForAge, type Guest } from "@/lib/pricing";
+import { BINGO_CENTS, ENTRANCE_CENTS, type Guest } from "@/lib/pricing";
 import { generateTicketNumber } from "@/lib/ticket-number";
 
 export type Order = {
@@ -197,7 +197,7 @@ async function issueTickets(order: Order) {
             ${order.eventId},
             ${order.email},
             ${guest.age},
-            ${priceForAge(guest.age)},
+            ${ENTRANCE_CENTS},
             ${guest.bingo ? BINGO_CENTS : 0},
             ${guest.bingo ? sql.json(createBingoCard()) : null}
           )
@@ -331,8 +331,9 @@ function pickMany<T>(items: T[], count: number) {
 export async function drawWinners(eventId: string) {
   const tickets = await listTickets(eventId);
   const bingoPool = tickets.filter((ticket) => ticket.bingoCard);
-  const bingoPick = bingoPool.length ? pickMany(bingoPool, 1)[0] : null;
-  let prizePool = tickets.filter((ticket) => ticket.number !== bingoPick?.number);
+  const bingoPicks = pickMany(bingoPool, Math.min(5, bingoPool.length));
+  const bingoNumbers = new Set(bingoPicks.map((ticket) => ticket.number));
+  let prizePool = tickets.filter((ticket) => !bingoNumbers.has(ticket.number));
   if (prizePool.length < Math.min(5, tickets.length)) prizePool = tickets;
   const prize = pickMany(prizePool, Math.min(5, prizePool.length));
 
@@ -351,17 +352,18 @@ export async function drawWinners(eventId: string) {
     `;
   }
 
-  if (bingoPick) {
+  if (bingoPicks.length > 0) {
     await sql`
       update event_signup.tickets
       set bingo_winner = true
-      where number = ${bingoPick.number}
+      where event_id = ${eventId}
+        and number in ${sql(bingoPicks.map((ticket) => ticket.number))}
     `;
   }
 
   const updated = await listTickets(eventId);
   return {
     prize: updated.filter((ticket) => ticket.prizeWinner),
-    bingo: updated.find((ticket) => ticket.bingoWinner) ?? null,
+    bingo: updated.filter((ticket) => ticket.bingoWinner),
   };
 }

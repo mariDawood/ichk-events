@@ -3,7 +3,7 @@ import type { Locale } from "@/i18n/routing";
 type Copy = Record<Locale, string>;
 
 export type Price = {
-  amount: string;
+  amount: Copy;
   who: Copy;
 };
 
@@ -38,17 +38,17 @@ export type ChurchEvent = {
 export const events: ChurchEvent[] = [
   {
     id: "nieuw-licht-2026-12-06",
-    start: "2026-12-06T12:00:00+01:00",
+    start: "2026-12-06T13:00:00+01:00",
     end: "2026-12-06T16:00:00+01:00",
     title: {
-      nl: "Een nieuw licht brandt in Duiven",
-      en: "A new light burns in Duiven",
-      ar: "نور جديد يضيء في دويفن",
+      nl: "Het vredeslicht in Duiven",
+      en: "The peace light in Duiven",
+      ar: "نور السلام في دويفن",
     },
     summary: {
-      nl: "Een open dag voor iedereen die een beetje licht kan gebruiken! We komen samen in de kerk, met eten, gezelligheid en een warm welkom.",
-      en: "An open day for everyone who can use a little light! We come together in the church, with food, fun games, and a warm welcome.",
-      ar: "يوم مفتوح للجميع الذين يمكنهم استخدام الضوء القليل! نجتمع في الكنيسة، مع الطعام والتواصل وترحيب حار.",
+      nl: "Een open dag voor iedereen, ook voor gezinnen. We zamelen geld in voor de kerk, met als doel €60.000. U bent welkom, of u nu gelovig bent of gewoon nieuwsgierig.",
+      en: "An open day for everyone, including families. We are raising money for the church, with a goal of €60,000. You are welcome whether you are a believer or simply curious.",
+      ar: "يوم مفتوح للجميع، وللعائلات أيضًا. نجمع المال للكنيسة، والهدف ٦٠٬٠٠٠ يورو. أنتم مدعوون، مؤمنين كنتم أو مجرد فضوليين.",
     },
     date: {
       nl: "zondag 6 december 2026",
@@ -56,9 +56,9 @@ export const events: ChurchEvent[] = [
       ar: "الأحد ٦ كانون الأول ٢٠٢٦",
     },
     time: {
-      nl: "12.00 tot 16.00 uur",
-      en: "12:00 to 16:00",
-      ar: "١٢:٠٠ حتى ١٦:٠٠",
+      nl: "13.00 tot 16.00 uur",
+      en: "13:00 to 16:00",
+      ar: "١٣:٠٠ حتى ١٦:٠٠",
     },
     place: {
       nl: "H. Remigiuskerk\nRemigiusplein, Duiven",
@@ -67,31 +67,27 @@ export const events: ChurchEvent[] = [
     },
     prices: [
       {
-        amount: "€5",
-        who: {
-          nl: "Kinderen t/m 12 jaar",
-          en: "Children up to and including 12 years",
-          ar: "الأطفال حتى عمر ١٢ سنة",
+        amount: {
+          nl: "€2,50",
+          en: "€2.50",
+          ar: "€2,50",
         },
-      },
-      {
-        amount: "€10",
         who: {
-          nl: "Alle anderen",
-          en: "Everyone else",
-          ar: "الباقي",
+          nl: "Iedereen",
+          en: "Everyone",
+          ar: "الجميع",
         },
       },
     ],
     included: {
-      nl: "Inbegrepen: één koffie of thee en iets kleins te eten.",
-      en: "Included: one coffee or tea and something small to eat.",
-      ar: "يشمل ذلك مشروبًا واحدًا، قهوة أو شاي، وشيئًا صغيرًا للأكل.",
+      nl: "Inbegrepen: één koffie of thee en één koekje.",
+      en: "Included: one coffee or tea and one cookie.",
+      ar: "يشمل ذلك قهوة أو شايًا واحدًا وبسكويتة واحدة.",
     },
     extra: {
-      nl: "Extra eten en drinken betaalt u bij de kraampjes.",
-      en: "You can pay for more food and drinks at the stalls.",
-      ar: "يمكن دفع ثمن المزيد من الطعام والشراب عند الأكشاك.",
+      nl: "Extra drinken en hapjes betaalt u bij de kraampjes.",
+      en: "You pay for extra drinks and bites at the stalls.",
+      ar: "تدفعون ثمن المشروبات واللقيمات الإضافية عند الأكشاك.",
     },
     ticket: {
       nl: "Op het kaartje staat een nummer. Daarmee maakt u kans op een van de vijf prijzen.",
@@ -99,9 +95,9 @@ export const events: ChurchEvent[] = [
       ar: "على التذكرة رقم. به يمكنكم الفوز بإحدى الجوائز الخمس.",
     },
     bingo: {
-      nl: "Bingokaart: €7 bij het aanmelden. Eén grote prijs.",
-      en: "Bingo card: €7 when you sign up. One large prize.",
-      ar: "بطاقة بنغو: ٧ يورو عند التسجيل. جائزة كبيرة واحدة.",
+      nl: "Bingokaart: €1 bij het aanmelden of aan de deur. Vijf winnaars, te beginnen met een kerstcadeau van ongeveer €30.",
+      en: "Bingo card: €1 when you sign up, or at the door. Five winners, starting with a Christmas gift of about €30.",
+      ar: "بطاقة بنغو: ١ يورو عند التسجيل أو عند الباب. خمسة فائزين، وتبدأ بهدية ميلاد بنحو ٣٠ يورو.",
     },
     activities: [
       {
@@ -112,22 +108,22 @@ export const events: ChurchEvent[] = [
           ar: "تزيين الشموع",
         },
         text: {
-          nl: "Versier zelf een kaars, met lint en bloemen.",
-          en: "Decorate a candle yourself, with ribbon and flowers.",
-          ar: "زيّنوا شمعة بأيديكم، بشريط وزهور.",
+          nl: "Versier zelf een kaars.",
+          en: "Decorate a candle yourself.",
+          ar: "زيّنوا شمعة بأيديكم.",
         },
       },
       {
         image: "table",
         title: {
-          nl: "Samen eten",
-          en: "Eat together",
-          ar: "الأكل معًا",
+          nl: "Eten en drinken",
+          en: "Food and drinks",
+          ar: "الطعام والشراب",
         },
         text: {
-          nl: "Eten gemaakt door vrijwilligers, met koffie en thee.",
-          en: "Food made by volunteers, with coffee and tea.",
-          ar: "طعام يُعدّه المتطوعون، مع القهوة والشاي.",
+          nl: "Eten gemaakt door vrijwilligers, en een chocoladefontein. In de andere zalen zijn popcorn en warme chocolademelk met slagroom.",
+          en: "Food made by volunteers, and a chocolate fountain. In the other rooms there is popcorn and hot chocolate with whipped cream.",
+          ar: "طعام يعدّه المتطوعون، ونافورة شوكولاتة. في القاعات الأخرى فشار وشوكولاتة ساخنة مع كريمة.",
         },
       },
       {
@@ -138,22 +134,22 @@ export const events: ChurchEvent[] = [
           ar: "اللعب",
         },
         text: {
-          nl: "Een kermisspel, bordspellen, arcade, Lego en een racesimulator. Kinderen kunnen zich laten schminken, en er is een beautyhoek.",
-          en: "A fair game, board games, arcade, Lego, and a racing simulator. Children can have their faces painted, and there is a beauty corner.",
-          ar: "لعبة مهرجان، وألعاب طاولة، وأركيد، وليغو، وجهاز سباق. يمكن رسم وجوه الأطفال، وهناك ركن تجميل.",
+          nl: "Kermisspellen, bordspellen, puzzels en tweedehands speelgoed. Er is een Legotafel, buiten tafeltennis, en een racesimulator met PlayStation en Atari op een groot scherm. In de beautyhoek kunt u haar, nagels en make-up laten doen.",
+          en: "Fair games, board games, puzzles, and second-hand toys. There is a Lego table, table tennis outside, and a racing simulator with PlayStation and Atari on a large screen. In the beauty corner you can have your hair, nails, and makeup done.",
+          ar: "ألعاب مهرجان، وألعاب طاولة، وألغاز، وألعاب مستعملة. هناك طاولة ليغو، وتنس طاولة في الخارج، وجهاز سباق مع بلايستيشن وأتاري على شاشة كبيرة. في ركن التجميل يمكن تصفيف الشعر وطلاء الأظافر والمكياج.",
         },
       },
       {
         image: "music",
         title: {
-          nl: "Piano en film",
-          en: "Piano and a film",
-          ar: "بيانو وفيلم",
+          nl: "Piano",
+          en: "Piano",
+          ar: "بيانو",
         },
         text: {
-          nl: "Piano met mooie melodieën, en een kerstfilm met popcorn en warme chocolademelk.",
-          en: "Piano with nice melodies, and a Christmas film with popcorn and hot chocolate.",
-          ar: "بيانو بألحان جميلة، وفيلم بمناسبة الميلاد مع الفشار وشوكولاتة ساخنة.",
+          nl: "Solo-optredens met Nederlandse melodieën, en Amo Ghandi op de piano. Er speelt steeds iemand anders.",
+          en: "Solo performances with Dutch melodies, and Amo Ghandi on the piano. Each time someone else plays.",
+          ar: "عزف منفرد بألحان هولندية، وآمو غاندي على البيانو. في كل مرة يعزف شخص آخر.",
         },
       },
       {
@@ -164,9 +160,9 @@ export const events: ChurchEvent[] = [
           ar: "ادخلوا",
         },
         text: {
-          nl: "Maak kennis met de parochie: catechese, de eucharistie, jongeren, het koor en het verhaal van de kerk en het geloof. Er zullen korte presentaties gegeven worden, de mogelijkheid om onze kringloophoek te bezoeken en samen met elkaar in gesprek te gaan.",
-          en: "Meet the parish: catechesis, the Eucharist, youth, the choir, and the story of the church and the faith. There will be short presentations, the possibility to visit our second-hand goods corner, and to converse together.",
-          ar: "تعرّفوا إلى الرعية: التعليم المسيحي، الإفخارستيا، الشباب، الجوقة، وقصة الكنيسة والإيمان. هناك محاضرات قصيرة، والميلاد بأغراض مستعملة، والتحدث مع بعضنا البعض.",
+          nl: "Korte presentaties over catechese, de activiteiten, de eucharistie, jongeren, de geschiedenis van kerk en geloof, en het koor. Er is een kraam met kerk- en kerstspullen, en een quiz bij het kerstverhaal: de winnaar krijgt een snoepje. Voor €0,50 hangt u een wens aan de lichtslinger. Tussen de kramen staan stoelen om samen te praten. U kunt ook iets geven voor de kerk. Er worden foto's gemaakt.",
+          en: "Short presentations on catechesis, the activities, the Eucharist, youth, the history of the church and the faith, and the choir. There is a stall with church and Christmas goods, and a quiz during the Christmas story: the winner gets a sweet. For €0.50 you hang a wish on the garland of lights. Between the stalls there are chairs where you can sit and talk. You can also give something for the church. Photos will be taken.",
+          ar: "عروض قصيرة عن التعليم المسيحي، والأنشطة، والإفخارستيا، والشباب، وتاريخ الكنيسة والإيمان، والجوقة. هناك كشك لأغراض الكنيسة والميلاد، ومسابقة أثناء قصة الميلاد: الفائز يحصل على حلوى. مقابل ٠٫٥٠ يورو تعلّقون أمنية على إكليل الأنوار. بين الأكشاك مقاعد للحديث معًا. يمكنكم أيضًا أن تعطوا للكنيسة. ستُلتقط صور.",
         },
       },
     ],

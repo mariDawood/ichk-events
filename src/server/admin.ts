@@ -63,11 +63,11 @@ export async function resetBingoAction(eventId: string) {
 
 export async function drawWinnersAction(eventId: string) {
   await requireAdmin();
-  if (!getEvent(eventId)) return { prize: [], bingo: null };
+  if (!getEvent(eventId)) return { prize: [], bingo: [] };
   const result = await drawWinners(eventId);
   return {
     prize: result.prize.map(shareTicket),
-    bingo: result.bingo ? shareTicket(result.bingo) : null,
+    bingo: result.bingo.map(shareTicket),
   };
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { formatEuro } from "@/lib/money";
-import { BINGO_CENTS, MAX_PARTY, priceForAge } from "@/lib/pricing";
+import { BINGO_CENTS, ENTRANCE_CENTS, MAX_PARTY } from "@/lib/pricing";
 import { startSignup, type SignupError } from "@/server/signup";
 import { useLocale, useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
@@ -46,7 +46,7 @@ export function SignupForm({
       agesReady = false;
       continue;
     }
-    total += priceForAge(age) + (guest.bingo ? BINGO_CENTS : 0);
+    total += ENTRANCE_CENTS + (guest.bingo ? BINGO_CENTS : 0);
   }
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {

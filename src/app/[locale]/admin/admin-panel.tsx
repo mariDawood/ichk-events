@@ -55,9 +55,9 @@ export function AdminPanel({
   const [mailNote, setMailNote] = useState<Record<string, string>>({});
   const [pending, startTransition] = useTransition();
   const winners = orders.flatMap((order) => order.tickets).filter((ticket) => ticket.prizeWinner);
-  const bingoWinner = orders
+  const bingoWinners = orders
     .flatMap((order) => order.tickets)
-    .find((ticket) => ticket.bingoWinner);
+    .filter((ticket) => ticket.bingoWinner);
 
   function callNumber() {
     startTransition(async () => {
@@ -80,7 +80,7 @@ export function AdminPanel({
 
   function draw() {
     if (
-      (winners.length > 0 || bingoWinner) &&
+      (winners.length > 0 || bingoWinners.length > 0) &&
       !window.confirm("Dit vervangt de vorige trekking.")
     ) {
       return;
@@ -144,7 +144,7 @@ export function AdminPanel({
             <p className="mt-2">{found.email}</p>
             <p>{found.age} jaar{found.bingo ? " · bingokaart" : ""}</p>
             {found.prizeWinner ? <p className="mt-2 font-semibold">Winnaar van een van de vijf prijzen.</p> : null}
-            {found.bingoWinner ? <p className="mt-2 font-semibold">Winnaar van de grote bingoprijs.</p> : null}
+            {found.bingoWinner ? <p className="mt-2 font-semibold">Winnaar van een van de vijf bingoprijzen.</p> : null}
           </div>
         ) : null}
       </section>
@@ -190,7 +190,7 @@ export function AdminPanel({
 
       <section className="rounded-[2rem] bg-ivory px-5 py-6 shadow-md ring-1 ring-line">
         <h2 className="font-display text-3xl">Prijzen</h2>
-        <p className="mt-2 text-xl">Vijf kaartjes voor de prijzen, en één bingokaart voor de grote prijs.</p>
+        <p className="mt-2 text-xl">Vijf kaartjes voor de prijzen, en vijf bingokaarten.</p>
         <button
           type="button"
           onClick={draw}
@@ -205,11 +205,11 @@ export function AdminPanel({
               Prijs {index + 1}: {ticket.number} · {ticket.email}
             </p>
           ))}
-          {bingoWinner ? (
-            <p>
-              Bingo: {bingoWinner.number} · {bingoWinner.email}
+          {bingoWinners.map((ticket, index) => (
+            <p key={ticket.number}>
+              Bingo {index + 1}: {ticket.number} · {ticket.email}
             </p>
-          ) : null}
+          ))}
         </div>
       </section>
 
