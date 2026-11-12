@@ -68,14 +68,14 @@ export const events: ChurchEvent[] = [
     prices: [
       {
         amount: {
-          nl: "€2,50",
-          en: "€2.50",
-          ar: "€2,50",
+          nl: "Gratis",
+          en: "Free",
+          ar: "مجاني",
         },
         who: {
-          nl: "p.p.",
-          en: "p.p.",
-          ar: "p.p.",
+          nl: "",
+          en: "",
+          ar: "",
         },
       },
     ],

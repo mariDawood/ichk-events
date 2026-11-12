@@ -1,11 +1,7 @@
 import "server-only";
 import { headers } from "next/headers";
 
-export function localePath(locale: string, path: string) {
-  const suffix = path.startsWith("/") ? path : `/${path}`;
-  if (locale === "nl") return suffix;
-  return `/${locale}${suffix}`;
-}
+export { localePath } from "@/lib/locale-path";
 
 export async function requestOrigin() {
   const configured = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");

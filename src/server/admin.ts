@@ -9,16 +9,23 @@ import {
   loginAllowed,
   noteLoginFailure,
 } from "@/lib/admin-auth";
-import { sendOrderEmail } from "@/lib/email";
+import { mailConfigured, sendAdminMessage, sendOrderEmail } from "@/lib/email";
 import { getEvent } from "@/lib/events";
 import {
+  adminCancelTicket,
   callBingoNumber,
+  checkInTicket,
+  createDoorTicket,
   drawWinners,
+  getAttendanceByNumber,
   getOrder,
   getTicket,
+  listActiveEmails,
   resetBingo,
+  type Attendance,
   type Ticket,
 } from "@/lib/orders";
+import { parsePersonName } from "@/lib/pricing";
 import { normalizeTicketNumber } from "@/lib/ticket-number";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -75,8 +82,46 @@ export async function scanTicketAction(rawNumber: string) {
   await requireAdmin();
   const number = normalizeTicketNumber(rawNumber);
   if (!number) return null;
-  const ticket = await getTicket(number);
-  return ticket ? shareTicket(ticket) : null;
+  const checked = await checkInTicket(number);
+  if (!checked) return null;
+  const row = await getAttendanceByNumber(number);
+  if (!row) return null;
+  return { ...sharePerson(row), result: checked.result };
+}
+
+export async function createDoorAction(input: { eventId: string; name: string; age: number; bingo: boolean }) {
+  await requireAdmin();
+  if (!getEvent(input.eventId)) return { ok: false as const };
+  const name = parsePersonName(input.name);
+  if (!name) return { ok: false as const };
+  if (!Number.isInteger(input.age) || input.age < 0 || input.age > 120) return { ok: false as const };
+  const number = await createDoorTicket({
+    eventId: input.eventId,
+    name,
+    age: input.age,
+    bingo: input.bingo === true,
+  });
+  return { ok: true as const, number };
+}
+
+export async function adminCancelAction(number: string) {
+  await requireAdmin();
+  const normalized = normalizeTicketNumber(number);
+  if (!normalized) return false;
+  const ticket = await adminCancelTicket(normalized);
+  return Boolean(ticket);
+}
+
+export async function sendMessageAction(eventId: string, message: string) {
+  await requireAdmin();
+  const event = getEvent(eventId);
+  const text = message.trim();
+  if (!event || text.length < 1 || text.length > 2000) return "missing" as const;
+  if (!mailConfigured()) return "unavailable" as const;
+  const emails = await listActiveEmails(eventId);
+  if (emails.length === 0) return "empty" as const;
+  const sent = await sendAdminMessage(emails, `Bericht: ${event.title.nl}`, text);
+  return sent > 0 ? `sent:${sent}` : "unavailable";
 }
 
 export async function resendEmailAction(orderId: string) {
@@ -95,11 +140,29 @@ export async function resendEmailAction(orderId: string) {
 function shareTicket(ticket: Ticket) {
   return {
     number: ticket.number,
+    name: ticket.name,
     email: ticket.email,
     age: ticket.age,
     eventId: ticket.eventId,
     bingo: ticket.bingoCard != null,
     prizeWinner: ticket.prizeWinner,
     bingoWinner: ticket.bingoWinner,
+  };
+}
+
+function sharePerson(row: Attendance) {
+  return {
+    number: row.number,
+    name: row.name,
+    email: row.email,
+    phone: row.phone,
+    age: row.age,
+    bingo: row.bingo,
+    source: row.source,
+    prizeWinner: row.prizeWinner,
+    bingoWinner: row.bingoWinner,
+    orderId: row.orderId,
+    checkedIn: Boolean(row.checkedInAt),
+    cancelled: Boolean(row.cancelledAt),
   };
 }

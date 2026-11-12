@@ -6,10 +6,10 @@ import {
   BINGO_CENTS,
   ENTRANCE_CENTS,
   orderTotal,
-  parseEmail,
   parseGuests,
   type Guest,
 } from "@/lib/pricing";
+import { setAccountLocale } from "@/lib/accounts";
 import { sendOrderEmail } from "@/lib/email";
 import {
   attachStripeSession,
@@ -20,7 +20,7 @@ import {
 } from "@/lib/orders";
 import { localePath, requestOrigin } from "@/lib/site";
 
-export type SignupError = "email" | "age" | "event" | "payment" | "generic";
+export type SignupError = "account" | "name" | "age" | "event" | "payment" | "generic";
 
 const lineNames = {
   nl: {
@@ -63,14 +63,14 @@ function lineItems(guests: Guest[], locale: Order["locale"]) {
     });
   };
 
-  add(names.entrance, ENTRANCE_CENTS, guests.length);
+  if (ENTRANCE_CENTS > 0) add(names.entrance, ENTRANCE_CENTS, guests.length);
   add(names.bingo, BINGO_CENTS, bingo);
   return items;
 }
 
 export async function startCheckout(input: {
   eventId: string;
-  email: unknown;
+  account: { id: string; email: string };
   guests: unknown;
   company?: string;
   locale: string;
@@ -80,10 +80,16 @@ export async function startCheckout(input: {
     return { ok: true, url: localePath(locale, "/") };
   }
 
-  const email = parseEmail(input.email);
-  if (!email) return { ok: false, error: "email" };
   const guests = parseGuests(input.guests);
-  if (!guests) return { ok: false, error: "age" };
+  if (!guests) {
+    const rows = Array.isArray(input.guests) ? input.guests : [];
+    const namesMissing = rows.some((item) => {
+      if (!item || typeof item !== "object") return true;
+      const name = (item as { name?: unknown }).name;
+      return typeof name !== "string" || name.trim().length === 0;
+    });
+    return { ok: false, error: namesMissing ? "name" : "age" };
+  }
 
   const event = getEvent(input.eventId);
   if (!event || Date.now() >= new Date(event.end).getTime()) {
@@ -92,15 +98,32 @@ export async function startCheckout(input: {
 
   const locale: Order["locale"] =
     input.locale === "en" || input.locale === "ar" ? input.locale : "nl";
+  await setAccountLocale(input.account.id, locale);
   const totalCents = orderTotal(guests);
   const order = await createOrder({
     eventId: event.id,
-    email,
+    email: input.account.email,
+    accountId: input.account.id,
     locale,
     totalCents,
     guests,
     accessToken: randomBytes(24).toString("base64url"),
   });
+
+  if (totalCents === 0) {
+    const paid = await fulfillOrder(order.id);
+    if (!paid) return { ok: false, error: "generic" };
+    const tickets = [];
+    for (const number of paid.ticketNumbers) {
+      const ticket = await getTicket(number);
+      if (ticket) tickets.push(ticket);
+    }
+    await sendOrderEmail(paid, tickets);
+    return {
+      ok: true,
+      url: localePath(locale, `/signup/complete?order=${order.accessToken}`),
+    };
+  }
 
   const stripe = stripeClient();
   const demo = process.env.PAYMENTS_DEMO === "1" || !stripe;
@@ -127,7 +150,7 @@ export async function startCheckout(input: {
     const origin = await requestOrigin();
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
-      customer_email: email,
+      customer_email: input.account.email,
       client_reference_id: order.id,
       metadata: { orderId: order.id },
       line_items: lineItems(guests, locale),

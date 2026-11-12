@@ -23,6 +23,12 @@ function adminEmail() {
   return (process.env.ADMIN_EMAIL ?? "mari03dawood@gmail.com").trim().toLowerCase();
 }
 
+export function hashPassword(password: string) {
+  const salt = randomBytes(16).toString("base64url");
+  const hash = scryptSync(password, salt, 32).toString("base64url");
+  return `scrypt$${salt}$${hash}`;
+}
+
 export function verifyPassword(password: string, stored: string) {
   const [kind, salt, hash] = stored.split("$");
   if (kind !== "scrypt" || !salt || !hash) return false;

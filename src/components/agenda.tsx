@@ -2,6 +2,7 @@ import { BingoLive } from "@/components/bingo-live";
 import { SignupForm } from "@/components/signup-form";
 import type { ChurchEvent } from "@/content/events";
 import type { Locale } from "@/i18n/routing";
+import { getCurrentAccount } from "@/lib/accounts";
 import { getVisibleEvents, isDuringEvent } from "@/lib/events";
 import { routeUrl } from "@/components/site-footer";
 import { getTranslations } from "next-intl/server";
@@ -18,7 +19,10 @@ const illustrations = {
 
 export async function Agenda({ locale }: { locale: Locale }) {
   await connection();
-  const visible = getVisibleEvents(new Date());
+  const [visible, account] = await Promise.all([
+    Promise.resolve(getVisibleEvents(new Date())),
+    getCurrentAccount(),
+  ]);
 
   if (visible.length === 0) {
     return <EmptyState />;
@@ -27,7 +31,12 @@ export async function Agenda({ locale }: { locale: Locale }) {
   return (
     <div className="flex flex-col gap-16">
       {visible.map((event) => (
-        <EventArticle key={event.id} event={event} locale={locale} />
+        <EventArticle
+          key={event.id}
+          event={event}
+          locale={locale}
+          account={account ? { name: account.name, email: account.email } : null}
+        />
       ))}
     </div>
   );
@@ -61,9 +70,11 @@ async function EmptyState() {
 async function EventArticle({
   event,
   locale,
+  account,
 }: {
   event: ChurchEvent;
   locale: Locale;
+  account: { name: string; email: string } | null;
 }) {
   const t = await getTranslations("event");
   const footer = await getTranslations("footer");
@@ -171,6 +182,7 @@ async function EventArticle({
 
       <SignupForm
         eventId={event.id}
+        account={account ? { name: account.name, email: account.email } : null}
         simulated={
           process.env.NODE_ENV === "development" &&
           !process.env.STRIPE_SECRET_KEY &&

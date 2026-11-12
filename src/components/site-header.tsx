@@ -1,6 +1,8 @@
 import { LanguageNav } from "@/components/language-nav";
 import type { Locale } from "@/i18n/routing";
-import { getTranslations } from "next-intl/server";
+import { getCurrentAccount } from "@/lib/accounts";
+import { localePath } from "@/lib/locale-path";
+import { getLocale, getTranslations } from "next-intl/server";
 
 const languageNames: Record<Locale, string> = {
   nl: "Nederlands",
@@ -28,6 +30,11 @@ function Cross() {
 
 export async function SiteHeader() {
   const t = await getTranslations("header");
+  const locale = await getLocale();
+  const account = await getCurrentAccount();
+  const accountHref = account
+    ? localePath(locale, "/account")
+    : localePath(locale, "/account/login");
 
   return (
     <header className="relative z-10 bg-chapel text-ivory">
@@ -42,7 +49,15 @@ export async function SiteHeader() {
             <p className="mt-4 max-w-xl text-xl leading-relaxed">{t("parish")}</p>
           </div>
         </div>
-        <LanguageNav label={t("language")} names={languageNames} />
+        <div className="flex flex-wrap items-center gap-3">
+          <LanguageNav label={t("language")} names={languageNames} />
+          <a
+            href={accountHref}
+            className="inline-flex min-h-12 items-center rounded-full bg-ivory px-4 text-lg text-ink"
+          >
+            {account ? t("account") : t("login")}
+          </a>
+        </div>
       </div>
       <div className="h-px bg-gold" />
     </header>

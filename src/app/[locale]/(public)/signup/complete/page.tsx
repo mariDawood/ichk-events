@@ -45,7 +45,7 @@ export default async function CompletePage({
   let accessToken = "";
   let emailSubject = "";
   let emailHtml = "";
-  let tickets: { number: string; age: number; bingo: boolean }[] = [];
+  let tickets: { number: string; name: string; age: number; bingo: boolean }[] = [];
   const demo = process.env.PAYMENTS_DEMO === "1";
 
   async function rememberEmail(order: Order, loaded: Ticket[]) {
@@ -69,12 +69,13 @@ export default async function CompletePage({
       }
       paid = true;
       emailed = result.emailed;
-      email = result.order.email;
+      email = result.order.email ?? "";
       totalCents = result.order.totalCents;
       accessToken = result.order.accessToken;
       eventTitle = getEvent(result.order.eventId)?.title[locale] ?? "";
       tickets = result.tickets.map((ticket) => ({
         number: ticket.number,
+        name: ticket.name,
         age: ticket.age,
         bingo: ticket.bingoCard != null,
       }));
@@ -83,10 +84,7 @@ export default async function CompletePage({
       if (typeof error === "object" && error && "digest" in error) throw error;
       notFound();
     }
-  } else if (
-    query.order &&
-    (process.env.NODE_ENV === "development" || process.env.PAYMENTS_DEMO === "1")
-  ) {
+  } else if (query.order) {
     const order = await getOrderByToken(query.order);
     if (!order || order.status !== "paid") notFound();
     const paidOrder = await fulfillOrder(order.id);
@@ -98,12 +96,13 @@ export default async function CompletePage({
     }
     emailed = await sendOrderEmail(paidOrder, loaded);
     paid = true;
-    email = paidOrder.email;
+    email = paidOrder.email ?? "";
     totalCents = paidOrder.totalCents;
     accessToken = paidOrder.accessToken;
     eventTitle = getEvent(paidOrder.eventId)?.title[locale] ?? "";
     tickets = loaded.map((ticket) => ({
       number: ticket.number,
+      name: ticket.name,
       age: ticket.age,
       bingo: ticket.bingoCard != null,
     }));
@@ -121,8 +120,9 @@ export default async function CompletePage({
         <p className="mt-4 text-xl leading-relaxed">{eventTitle}</p>
         <p className="mt-4 text-xl">{t("body", { email })}</p>
         <p className="mt-2 text-xl">
-          {t("paid")} {formatEuro(totalCents, locale)}
+          {totalCents > 0 ? `${t("paid")} ${formatEuro(totalCents, locale)}` : t("free")}
         </p>
+        <p className="mt-4 text-xl leading-relaxed">{t("cancel")}</p>
         {!emailed && !demo ? <p className="mt-4 text-xl">{t("emailPending")}</p> : null}
       </div>
       {emailHtml ? (
@@ -140,17 +140,26 @@ export default async function CompletePage({
           <li key={ticket.number} className="rounded-3xl bg-ivory px-5 py-4 text-xl shadow-md ring-1 ring-line">
             <p className="font-display text-4xl">{ticket.number}</p>
             <p className="mt-1">
+              {ticket.name ? `${ticket.name} · ` : ""}
               {t("age", { age: ticket.age })} · {ticket.bingo ? t("bingoYes") : t("bingoNo")}
             </p>
           </li>
         ))}
       </ul>
-      <a
-        href={localePath(locale, `/ticket/${accessToken}`)}
-        className="inline-flex min-h-14 items-center justify-center rounded-full bg-chapel px-6 text-xl text-ivory"
-      >
-        {t("open")}
-      </a>
+      <div className="flex flex-col gap-3 sm:flex-row">
+        <a
+          href={localePath(locale, `/ticket/${accessToken}`)}
+          className="inline-flex min-h-14 items-center justify-center rounded-full bg-chapel px-6 text-xl text-ivory"
+        >
+          {t("open")}
+        </a>
+        <a
+          href={localePath(locale, "/account")}
+          className="inline-flex min-h-14 items-center justify-center rounded-full px-6 text-xl text-chapel ring-1 ring-chapel"
+        >
+          {t("profile")}
+        </a>
+      </div>
     </div>
   );
 }
