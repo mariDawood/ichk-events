@@ -10,7 +10,9 @@
     "parish": "Saint Thomas the Apostle, parish for Chaldeans in the Netherlands",
     "language": "Language",
     "login": "Log in",
-    "account": "My signups"
+    "account": "My signups",
+    "event": "Current activity",
+    "switch": "Pages"
   },
   "empty": {
     "title": "Nothing is on the agenda yet",

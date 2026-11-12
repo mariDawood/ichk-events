@@ -10,7 +10,9 @@
     "parish": "Heilige Thomas Apostel, parochie voor Chaldeeën in Nederland",
     "language": "Taal",
     "login": "Inloggen",
-    "account": "Mijn aanmeldingen"
+    "account": "Mijn aanmeldingen",
+    "event": "Huidige activiteit",
+    "switch": "Pagina's"
   },
   "empty": {
     "title": "Er staat nog niets op de agenda",

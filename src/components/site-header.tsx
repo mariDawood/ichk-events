@@ -1,3 +1,4 @@
+import { HeaderSwitch } from "@/components/header-switch";
 import { LanguageNav } from "@/components/language-nav";
 import type { Locale } from "@/i18n/routing";
 import { getCurrentAccount } from "@/lib/accounts";
@@ -32,6 +33,7 @@ export async function SiteHeader() {
   const t = await getTranslations("header");
   const locale = await getLocale();
   const account = await getCurrentAccount();
+  const homeHref = locale === "nl" ? "/" : `/${locale}`;
   const accountHref = account
     ? localePath(locale, "/account")
     : localePath(locale, "/account/login");
@@ -51,12 +53,22 @@ export async function SiteHeader() {
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <LanguageNav label={t("language")} names={languageNames} />
-          <a
-            href={accountHref}
-            className="inline-flex min-h-12 items-center rounded-full bg-ivory px-4 text-lg text-ink"
-          >
-            {account ? t("account") : t("login")}
-          </a>
+          {account ? (
+            <HeaderSwitch
+              label={t("switch")}
+              eventHref={homeHref}
+              eventLabel={t("event")}
+              accountHref={accountHref}
+              accountLabel={t("account")}
+            />
+          ) : (
+            <a
+              href={accountHref}
+              className="inline-flex min-h-12 items-center rounded-full bg-ivory px-4 text-lg text-ink"
+            >
+              {t("login")}
+            </a>
+          )}
         </div>
       </div>
       <div className="h-px bg-gold" />
