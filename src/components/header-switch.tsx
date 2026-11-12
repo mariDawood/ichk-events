@@ -2,9 +2,9 @@
 
 import { usePathname } from "next/navigation";
 
-const goThere =
-  "inline-flex min-h-12 items-center rounded-full bg-ivory px-4 text-lg font-semibold text-ink";
 const youAreHere =
+  "inline-flex min-h-12 items-center rounded-full bg-ivory px-4 text-lg font-semibold text-ink";
+const goThere =
   "inline-flex min-h-12 items-center rounded-full px-4 text-lg text-ivory ring-1 ring-ivory";
 
 function normalize(path: string) {
